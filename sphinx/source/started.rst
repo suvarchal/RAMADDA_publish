@@ -51,7 +51,7 @@ To publish a directory named ``test_dir`` containing multiple files inside to RA
    
     ramadda_publish test_dir entryid -ramadda ramadda_server -user username -password password
 
-Directories can be grouped as a RAMADDA_ casestudy with an additional keyword suffix ``-groupas casestudy``; this type of directory gets a special look when it contains jupyter notebooks within. For example https://weather.rsmas.miami.edu/repository/entry/show?entryid=f34a263b-afe6-46fa-9490-42e9689b38a6``
+Directories can be grouped as a RAMADDA_ casestudy with an additional keyword suffix ``-groupas casestudy``; this type of directory gets a special look when it contains jupyter notebooks within. For example this url ``https://weather.rsmas.miami.edu/repository/entry/show?entryid=f34a263b-afe6-46fa-9490-42e9689b38a6`` is a casestudy type.
  
 
 
