@@ -5,7 +5,7 @@
 
 RAMADDA Publish
 ===============
-Allows automated ways of publishing content to a RAMADDA_ server. This documents assumes that the user has an account on a RAMADDA_ server.
+Allows automated ways of publishing content to a RAMADDA_ server. This document assumes that the user has an account on a RAMADDA_ server.
 
 Installation:
 ~~~~~~~~~~~~~
