@@ -1,5 +1,5 @@
 make singlehtml
-cp -a build/* ../docs/
+cp -a build/singlehtml/* ../docs/
 cd ../
 git add -A docs
 git add -A sphinx
