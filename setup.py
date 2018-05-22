@@ -7,7 +7,7 @@ def read(fname):
 
 setup( 
     name='ramadda_publish',
-    version='1.0',
+    version='1.3',
     url="https://github.com/suvarchal/RAMADDA_publish",
     author='Suvarchal',
     author_email='suvarchal.kumar@gmail.com',

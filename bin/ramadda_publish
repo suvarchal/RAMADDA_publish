@@ -11,7 +11,6 @@ from xml.etree import ElementTree
 import requests
 from io import StringIO
 from glob import glob
-from itertools import zip_longest
 def publish(parentid,pubfile,pubattach=None):
     """ Given a RAMADDA parent_id and list of case_names this function
     publishes to ramadda with user credentials taken from environment variables
@@ -91,7 +90,7 @@ def publish(parentid,pubfile,pubattach=None):
                                        'response': 'xml'})
     publish_attrib = ElementTree.fromstring(resp.text).attrib
     if publish_attrib['code'] == 'ok':
-        print('Published file {0} '.format(pubfile))
+        print('Published file {0} with atachment {1}'.format(pubfile,pubattach))
         return True
     else:
         print('Publish file {0} failed with {1}'.format(pubfile, publish_attrib['code']))
@@ -251,7 +250,7 @@ To publish a directory at an entryid of a ramadda server as a case study directo
                 for fi in glob(pargs.publish_file):
                     success=publish(pargs.entryid,fi,None)
             else: #if number of attachments and files are same
-                for fi,att in zip_longest(glob(pargs.publish_file),glob(pargs.attachment)):
+                for fi,att in zip(sorted(glob(pargs.publish_file)),sorted(glob(pargs.attachment))):
                     success=publish(pargs.entryid,fi,att)
         else:
             for fi in glob(pargs.publish_file):

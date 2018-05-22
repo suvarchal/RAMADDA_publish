@@ -1,6 +1,6 @@
 # RAMADDA_publish
-Allows automated ways of publishing content to a RAMADDA server
-
+Allows automated ways of publishing content to a RAMADDA server.
+https://suvarchal.github.io/RAMADDA_publish/
 
     Usage: 
 
