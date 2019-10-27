@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/home/suvarchal/miniconda3/envs/default/bin/python
 import argparse
 import os
 import re
@@ -73,8 +73,10 @@ def publish(parentid,pubfile,pubattach=None):
     try:
         user = os.environ['RAMADDA_USER']
         password = os.environ['RAMADDA_PASSWORD']
-    except KeyError as err:
-        print('Publish error {0}'.format(err))
+    except KeyError:
+        user ='anon' 
+        password='anonYmous'
+        #print('Publish error {0}'.format(err))
     with NamedTemporaryFile(suffix=".zip",delete=False) as tmpzip:
         with ZipFile(tmpzip.name, 'w') as zipfile:
             zipfile.writestr('entries.xml', xml_string)
@@ -111,6 +113,12 @@ def check_file_or_dir(f):
         raise argparse.ArgumentTypeError("{0} does not exist".format(f))
     return f
 
+def random_dir_name():
+    import string
+    import random
+    chars=string.ascii_lowercase[:26]+string.ascii_uppercase[:26]
+    return ''.join(random.choices(chars,k=5))
+
 def create_directory(parentid,dir_name,dir_type='plain'):
     """
     creates a directory on ramadda of type dir_type
@@ -131,8 +139,9 @@ def create_directory(parentid,dir_name,dir_type='plain'):
     try:
         user = os.environ['RAMADDA_USER']
         password = os.environ['RAMADDA_PASSWORD']
-    except KeyError as err:
-        print('Publish error {0}'.format(err))
+    except KeyError:
+        user ='anon' 
+        password='anonYmous'
     files={'file':StringIO(folder_xml)}
     resp = requests.post(postadd, files=files,
                                  data={'group': parentid,
@@ -186,11 +195,11 @@ To publish a directory at an entryid of a ramadda server as a case study directo
                              'Currently supports publishing IDV bundles, Jupyter notebooks,' 
                              ' gridded data files(netcdf,grib...),' 
                              ' csv files, other formats are published as plain files')
-    parser.add_argument('entryid',
+    parser.add_argument('-entryid',
                         help='Parent entryid string on a RAMADDA server.'
                              'It should contain just the string NOT entire url path.'
                              'NOTE: RAMADDA_USER needs to have permissions for publishing the file'
-                             ' on the RAMADDA server')
+                             ' on the RAMADDA server',default=None,required=False)
     parser.add_argument('-groupas',choices=("plain", "casestudy"), default="plain",
                         help='when the published file is a directory, it can be either a plain directory '
                              'or a casestudy type of directory.',required=False)
@@ -226,10 +235,10 @@ To publish a directory at an entryid of a ramadda server as a case study directo
         os.environ['RAMADDA_USER']=pargs.user
     if pargs.user:
         os.environ['RAMADDA_PASSWORD']=pargs.password
-    parentid = pargs.entryid
+    if not pargs.entryid:
+        pargs.entryid = create_directory('6bf8a7ea-cafe-4a83-8eb0-da8b76715884',random_dir_name())  
    
     attachment = pargs.attachment if pargs.attachment else None
-    
     if os.path.isdir(pargs.publish_file):
         parentid = create_directory(pargs.entryid,pargs.publish_file,pargs.groupas)
         ramadda = os.environ['RAMADDA']+"/entry/show?entryid="

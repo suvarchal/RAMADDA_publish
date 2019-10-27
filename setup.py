@@ -1,19 +1,18 @@
+from codecs import open
 from setuptools import setup
 import os
 
-def read(fname):
-    return open(os.path.join(os.path.dirname(__file__), fname)).read()
- 
 
 setup( 
     name='ramadda_publish',
-    version='1.3',
+    version='1.5',
     url="https://github.com/suvarchal/RAMADDA_publish",
     author='Suvarchal',
     author_email='suvarchal.kumar@gmail.com',
     license="MIT",
     description="python script to make automated entries to ramadda",
-    #long_description=read('README.md'),
+    long_description_content_type='text/markdown',
+    long_description=open('README.md').read(),
     scripts=['bin/ramadda_publish'],
     classifiers=[
     'Development Status :: 4 - Beta',
